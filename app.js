@@ -3,8 +3,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose')
+const cors = require('cors')
+require('dotenv').config()
 
-const mongoDB = 'mongodb+srv://jacobmolyneux2:Pigpen123@cluster0.3f83wgs.mongodb.net/?retryWrites=true&w=majority'
+
+const mongoDB = process.env.MONGODB_STRING
 mongoose.set("strictQuery", false);
 
 main().catch((err) => console.log(err));
@@ -22,6 +25,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);

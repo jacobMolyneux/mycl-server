@@ -1,26 +1,25 @@
 const User = require('../models/userSchema')
-exports.get_resume = async (req, res) => {
-    try{
-        const user = await User.findById(req.body.userId)
-        .then((result) => {
-            resumePath = result.resumeFilePath
-            //get resume path from mongodb 
+const AWS = require('aws-sdk')
 
-            // fetch resume file from aws s3 bucket
-            
-        })
-
-    }
-    catch(error){
-        res.status(404).send({
-            message: 'error finding resume',
-            error
-        })
-
-    }
-
+exports.get_resume = (req, res) => {
+  console.log('get resume')
 }
-
-exports.change_resume = (req, res) => {
-    res.send('update resume endpoint')
+exports.uploadResume = (req, res) => {
+  const params = {
+    Bucket: 'mycl-bucket',
+    Key: `uploads/${req.file.originalname}`, // Specify the S3 object key
+    Body: req.file.buffer, // File content as a Buffer
+  }
+  s3.upload(params, (err, data) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send({error: 'failed to upload to s3'})
+    }
+    else
+    return res.send({
+      message: 'File uploaded successfully', 
+      fileUrl: data.location
+    })
+  
+  })
 }
