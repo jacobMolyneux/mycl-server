@@ -5,6 +5,6 @@ var router = express.Router();
 /* GET home page. */
 
 router.get('/resume', appController.get_resume)
-router.post('/resume', appController.uploadResume)
+router.get('/upload-resume', appController.uploadResume)
 
 module.exports = router;
