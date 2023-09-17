@@ -18,6 +18,7 @@ async function main(){
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const authRouter = require('./routes/auth')
+const scraperRouter = require('./routes/scrape')
 
 var app = express();
 
@@ -31,5 +32,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth', authRouter)
+app.use('/scrape', scraperRouter)
 
 module.exports = app;
